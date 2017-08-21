@@ -27,7 +27,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'testserver']
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (    
+    'localhost:9000'
+)
+
+CORS_ALLOW_METHODS = (    
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+)
 
 
 REST_FRAMEWORK = {

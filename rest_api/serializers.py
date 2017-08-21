@@ -41,7 +41,7 @@ class ProdutoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Produto
-        fields = ('id', 'first_name', 'last_name', 'email', 'fotos')
+        fields = ('id', 'first_name', 'last_name', 'thumb', 'email', 'fotos')
 
 
 # class AlbumSerializer(serializers.ModelSerializer):

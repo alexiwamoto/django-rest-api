@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 class Produto(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
+    thumb = models.CharField(max_length=50)
     email = models.EmailField()
 
     def __str__(self):              # __unicode__ on Python 2
