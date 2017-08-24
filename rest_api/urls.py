@@ -17,6 +17,8 @@ urlpatterns = {
     # url(r'produtos/(?P<pk>[0-9]+)/$', ProdutoDetail.as_view(), name="produto_detail"),
     url(r'^produtos/$', views.produto_list),
     url(r'^produtos/(?P<pk>[0-9]+)$', views.produto_detail),
+    url(r'^fotos/$', views.foto_list),
+    url(r'^fotos/(?P<pk>[0-9]+)$', views.foto_detail),
 }
 
 urlpatterns = format_suffix_patterns(urlpatterns)

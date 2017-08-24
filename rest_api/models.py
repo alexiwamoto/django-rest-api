@@ -19,7 +19,7 @@ class Foto(models.Model):
     path = models.CharField(max_length=100)
     name = models.CharField(max_length=30)
     pub_date = models.DateField()
-    produto = models.ForeignKey(Produto, related_name='fotos', on_delete=models.CASCADE)
+    produto = models.ForeignKey(Produto, related_name='produto', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):              # __unicode__ on Python 2
         return self.path

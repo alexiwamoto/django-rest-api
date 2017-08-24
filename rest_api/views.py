@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from .permissions import IsOwner
-from .serializers import UserSerializer, ProdutoSerializer
+from .serializers import FotoSerializer, ProdutoSerializer
 from .models import Produto, Foto
 from django.contrib.auth.models import User
 
@@ -118,13 +118,10 @@ def produto_list(request, format=None):
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def produto_detail(request, pk, format=None):
-    """
-    Retrieve, update or delete a snippet instance.
-    """
 
     try:
         produto = Produto.objects.get(pk=pk)
-    except Snippet.DoesNotExist:
+    except Produto.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
@@ -140,4 +137,42 @@ def produto_detail(request, pk, format=None):
 
     elif request.method == 'DELETE':
         produto.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'POST'])
+def foto_list(request, format=None):
+    
+    if request.method == 'GET':
+        fotos = Foto.objects.all()
+        serializer = FotoSerializer(fotos, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':        
+        serializer = FotoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def foto_detail(request, pk, format=None):
+    
+    try:
+        foto = Foto.objects.get(pk=pk)
+    except Foto.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = FotoSerializer(foto)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = FotoSerializer(foto, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        foto.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
